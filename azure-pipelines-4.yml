@@ -66,7 +66,7 @@ stages:
       displayName: DeploywebApp
       pool:
         vmImage: windows-2019
-      environment: 'Dev'
+      
     - job: Deployment
       strategy:
         runOnce:
