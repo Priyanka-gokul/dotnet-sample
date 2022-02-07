@@ -66,12 +66,9 @@ stages:
       displayName: DeploywebApp
       pool:
         vmImage: windows-2019
-      
         environment: 'Dev'
-        strategy:
-          runOnce:
-            deploy:
-              steps:
+         deploy:
+         - steps:
                 - task: AzureRmWebAppDeployment@4
                   inputs:
                     ConnectionType: 'AzureRM'
@@ -79,3 +76,5 @@ stages:
                     appType: 'webApp'
                     WebAppName: 'demowebapppa'
                     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip' 
+       
+            
