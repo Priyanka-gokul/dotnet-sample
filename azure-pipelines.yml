@@ -78,10 +78,10 @@ stages:
             steps:
               - 
     -  task: AzureRmWebAppDeployment@4
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Free Trial(6b0f29ec-b23a-4145-8315-13ff7a5d7ca9)'
-        appType: 'webApp'
-        WebAppName: 'demowebapppa'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'Free Trial(6b0f29ec-b23a-4145-8315-13ff7a5d7ca9)'
+          appType: 'webApp'
+          WebAppName: 'demowebapppa'
+          packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
