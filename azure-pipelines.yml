@@ -62,7 +62,7 @@ stages:
           condition: succeededOrFailed() 
 
   - stage:  DeployDev
-       displayname:'Deploy To Dev'
+       displayname:'DeployToDev'
     jobs:
     - deployment: 
       pool:
