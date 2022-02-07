@@ -11,7 +11,7 @@ stages:
       - job: BuildwebApp
         pool:
           name: Azure Pipelines
-          vmimage: 'windows-latest'
+          vmimage: 'vs2017-win2016'
           demands:
           - msbuild
           - visualstudio
@@ -67,6 +67,7 @@ stages:
     - deployment: 
       pool:
           name: Azure Pipelines
+          vmimage: 'vs2017-win2016'
           demands:
           - msbuild
           - visualstudio
