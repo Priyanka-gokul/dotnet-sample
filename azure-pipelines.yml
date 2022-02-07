@@ -11,7 +11,7 @@ stages:
       - job: BuildwebApp
         pool:
           name: Azure Pipelines
-          vmimage: 'windowsagent'
+          vmimage: 'windows-latest'
           demands:
           - msbuild
           - visualstudio
