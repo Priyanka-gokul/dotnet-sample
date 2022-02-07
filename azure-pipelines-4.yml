@@ -62,19 +62,23 @@ stages:
 
   - stage:  DeployDev
     jobs:
-    - job: Deployment
+    
       displayName: DeploywebApp
       pool:
         vmImage: windows-2019
-        environment: 'Dev'
-         deploy:
-         - steps:
-           - task: AzureRmWebAppDeployment@4
-                  inputs:
-                    ConnectionType: 'AzureRM'
-                    azureSubscription: 'Free Trial(6b0f29ec-b23a-4145-8315-13ff7a5d7ca9)'
-                    appType: 'webApp'
-                    WebAppName: 'demowebapppa'
-                    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'      
-       
+      environment: 'Dev'
+    - job: Deployment
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: AzureRmWebAppDeployment@4
+                inputs:
+                  ConnectionType: 'AzureRM'
+                  azureSubscription: 'Free Trial(6b0f29ec-b23a-4145-8315-13ff7a5d7ca9)'
+                  appType: 'webApp'
+                  WebAppName: 'demowebapppa'
+                  packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+    
             
