@@ -1,0 +1,71 @@
+variables:
+- name: BuildParameters.solution
+  value: '**\*.sln'
+trigger:
+  branches:
+    include:
+    - master
+name: $(date:yyyyMMdd)$(rev:.r)
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: master
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: windows-2019
+  steps:
+  - checkout: self
+    clean: true
+  - task: NuGetToolInstaller@0
+    displayName: Use NuGet 4.4.1
+    inputs:
+      versionSpec: 4.4.1
+  - task: NuGetCommand@2
+    displayName: NuGet restore
+    inputs:
+      solution: $(BuildParameters.solution)
+  - task: VSBuild@1
+    displayName: Build solution **\*.sln
+    inputs:
+      solution: $(BuildParameters.solution)
+      msbuildArgs: /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:publishUrl="$(Agent.TempDirectory)\WebAppContent\\"
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
+  - task: ArchiveFiles@2
+    displayName: Archive Files
+    inputs:
+      rootFolderOrFile: $(Agent.TempDirectory)\WebAppContent
+      includeRootFolder: false
+  - task: VSTest@2
+    displayName: VsTest - testAssemblies
+    inputs:
+      testAssemblyVer2: >-
+        **\$(BuildConfiguration)\*test*.dll
+
+        !**\obj\**
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
+  - task: PublishSymbols@2
+    displayName: Publish symbols path
+    continueOnError: True
+    inputs:
+      SearchPattern: '**\bin\**\*.pdb'
+      PublishSymbols: false
+      SymbolServerType: TeamServices
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    condition: succeededOrFailed()
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+  - task: AzureWebApp@1
+    displayName: 'Azure Web App Deploy: demowebapppa'
+    inputs:
+      azureSubscription: 5ee95e1e-f35a-4b7b-876a-93de04718243
+      appType: webApp
+      appName: demowebapppa
+      package: $(build.artifactstagingdirectory)/**/*.zip
+...
