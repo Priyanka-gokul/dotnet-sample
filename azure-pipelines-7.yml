@@ -76,7 +76,7 @@ stages:
         vmImage: windows-2019
       steps:
       - checkout: self
-        clean: true
+        
       - task: AzureWebApp@1
         displayName: 'Azure Web App Deploy: demowebapppa'
         inputs:
