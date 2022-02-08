@@ -18,9 +18,14 @@ stages:
       displayName: Agent job 1
       pool:
         vmImage: windows-2019
+      variables:
+          solution: '**/*.sln'
+          buildPlatform: 'Any CPU'
+          buildConfiguration: 'Release'
       steps:
       - checkout: self
         clean: true
+      
       - task: NuGetToolInstaller@0
         displayName: Use NuGet 4.4.1
         inputs:
