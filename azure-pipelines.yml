@@ -81,7 +81,8 @@ stages:
            
       
           steps:
-            - checkout: self
+            - downloadBuild: current
+            - task: PublishBuildArtifacts@1
             - task: AzureWebApp@1
               displayName: 'Azure Web App Deploy: demowebapppa'
               inputs:
