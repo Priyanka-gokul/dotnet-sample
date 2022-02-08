@@ -54,6 +54,7 @@ stages:
             !**\obj\**
           platform: $(BuildPlatform)
           configuration: $(BuildConfiguration)
+          
       - task: PublishSymbols@2
         displayName: Publish symbols path
         continueOnError: True
@@ -81,13 +82,13 @@ stages:
            
       
           steps:
-            - downloadBuild: current
-            - task: PublishBuildArtifacts@1
+            
+            
             - task: AzureWebApp@1
               displayName: 'Azure Web App Deploy: demowebapppa'
               inputs:
                 appType: webApp
                 appName: demowebapppa
                 azureSubscription: 5ee95e1e-f35a-4b7b-876a-93de04718243
-                package: $(build.artifactstagingdirectory)/**/*.zip
+                package: $(build.artifactstagingdirectory)/D:\a\r1\a\drop/*.zip
             
