@@ -91,5 +91,5 @@ stages:
                 appType: webApp
                 appName: demowebapppa
                 azureSubscription: 5ee95e1e-f35a-4b7b-876a-93de04718243
-                package: $(build.artifactstagingdirectory)/D:\a\r1\a\drop/*.zip
+                package: $(build.artifactstagingdirectory)
             
