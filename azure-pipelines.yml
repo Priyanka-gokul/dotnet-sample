@@ -70,6 +70,7 @@ stages:
           TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
       
   - stage: Deploy
+    dependsOn: Build
     jobs:
     - deployment:
       displayName: Deploy
