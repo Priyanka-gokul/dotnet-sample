@@ -6,11 +6,7 @@ trigger:
     include:
     - master
 name: $(date:yyyyMMdd)$(rev:.r)
-resources:
-  repositories:
-  - repository: self
-    type: git
-    ref: master
+
 stages:
   - stage: Build
     jobs:
