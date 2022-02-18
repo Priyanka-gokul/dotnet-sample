@@ -21,7 +21,7 @@ stages:
       steps:
       - checkout: self
         clean: true
-      - script: echo '$(Build.BuildNumber)'
+     
       - task: NuGetToolInstaller@0
         displayName: Use NuGet 4.4.1
         inputs:
